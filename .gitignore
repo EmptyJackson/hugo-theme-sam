@@ -22,5 +22,6 @@
 public/
 jsconfig.json
 node_modules/
+.hugo_build.lock
 
 *.DS_store

@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+    /* ---- reset ---- */
+    canvas {
+    display: block;
+    vertical-align: bottom;
+    } /* ---- particles.js container ---- */
+    #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #18191A;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    }
+</style>
+
 <head>
     {{ partial "head.html" . }}
     <title>{{ .Title | markdownify }}</title>
 </head>
 
 <body>
-    {{ with .Site.Params.videoBackground }}
+    <!-- {{ with .Site.Params.videoBackground }}
         <video class="video" autoplay muted preload loop playsinline>
             {{ range .sources }}
                 <source
@@ -19,20 +37,26 @@
         {{ with .overlay }}
             <div id="overlay" style="background: {{ . | safeCSS }};"></div>
         {{ end }}
-    {{ end }}
+    {{ end }} -->
 
-    <nav role="navigation" class="flex-container" id="splash">
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
+    {{ $script := resources.Get "js/particles.js" | minify}}
+    <script src="{{ $script.Permalink }}"></script>
+
+    <nav role="navigation" class="flex-container" id="splash"> <!-- id="splash">-->
 
         {{ if .Site.Params.mainMenu }}
         {{ range .Site.Params.mainMenu }}
-            <a href="{{.link}}" class="big-link">
+            <a href="{{.link}}" class="big-link" style="z-index: 1">
                 {{.text}}
             </a>
         {{ end }}
 
         {{ else }}
         {{ range .Site.Sections }}
-            <a href="{{.RelPermalink}}" class="big-link">
+            <a href="{{.RelPermalink}}" class="big-link" style="z-index: 1">
                 {{.Title | markdownify}}
             </a>
         {{ end }}
